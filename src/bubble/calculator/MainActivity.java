@@ -243,14 +243,10 @@ public class MainActivity extends Activity implements OnTouchListener,OnClickLis
 				else {
 					if ( ParseExpression.appendDotValid(frontExp) ){
 						if ( frontExp.matches(".*?(" + regOperator + "|\\()$|()") ){
-							exp = frontExp + "0." + rearExp;
-							inputString = "";
-							showEditText.setSelection(cursorIndex + 2);
+							inputString = "0.";
 						}
 						else {
-							exp = frontExp + "." + rearExp;
-							inputString = "";
-							showEditText.setSelection(cursorIndex + 1);
+							inputString = ".";
 						}
 					}
 					else{
@@ -379,10 +375,10 @@ public class MainActivity extends Activity implements OnTouchListener,OnClickLis
 		
 		if ( cursorEnd || (inputString == "=") )
 			showEditText.setSelection(showEditText.getText().length());
+		else if ( !cursorEnd && inputString.matches("(\\(\\))|(0\\.)") )
+			showEditText.setSelection(cursorIndex + 2);
 		else if ( cursorIndex < showEditText.getText().length() )
 			showEditText.setSelection(cursorIndex + 1);
-		else if ( !cursorEnd && inputString == "()")
-			showEditText.setSelection(cursorIndex + 2);
 	}
     
     @Override
