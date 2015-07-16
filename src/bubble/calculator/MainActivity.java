@@ -1,12 +1,9 @@
 package bubble.calculator;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -30,8 +27,6 @@ import com.bubble.calculator.R;
  * @date 2015-7-2
  */
 public class MainActivity extends Activity implements OnTouchListener,OnClickListener{
-	private ViewPager mPager;	//页卡内容
-	private List<View> listViews;	//页面列表
 	
 	final static String ERROR = "格式错误";
 	String parenthesis = "( )";
@@ -61,16 +56,16 @@ public class MainActivity extends Activity implements OnTouchListener,OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.main_activity_layout);
+        setContentView(R.layout.calculator_layout);
         
         showEditText = (EditText)findViewById(R.id.showET);
          
         initVal();	//初始化字符串变量
-        initUI();	//初始化界面
+        initCalUI();	//初始化界面
     }
     
     /**
-     * <p>Title: initCal</p>
+     * <p>Title: initVal</p>
      * <p>Description: 初始化</p>
      * @author bubble
      * @date 2015-7-3
@@ -86,7 +81,13 @@ public class MainActivity extends Activity implements OnTouchListener,OnClickLis
     	showEditText.setSelection(exp.length());
     }
  
-    private void initUI(){
+    /**
+     * <p>Title: initCalUI</p>
+     * <p>Description: 初始化计算器界面</p>
+     * @author bubble
+     * @date 2015-7-15 
+     */
+    private void initCalUI(){
     	Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
         
@@ -99,7 +100,7 @@ public class MainActivity extends Activity implements OnTouchListener,OnClickLis
 		tvParams.height = (int)( size.y - cellHeight * 5 - 44 );
 		showEditText.setLayoutParams(tvParams);
 		
-        gridLayout = (GridLayout)findViewById(R.id.main_activity);
+        gridLayout = (GridLayout)findViewById(R.id.calculator_main);
         GridLayout.Spec rowSpec;
         GridLayout.Spec columnSpec;
         gridLayout.setBackgroundColor(Color.parseColor("#D1D1D1"));
@@ -128,6 +129,7 @@ public class MainActivity extends Activity implements OnTouchListener,OnClickLis
             btn[i].setOnClickListener(this);
         }
     }
+    
 	/* (non-Javadoc)
      * <p>Title: onTouch</p>
      * <p>Description: </p>

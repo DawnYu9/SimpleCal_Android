@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main_activity"
+    android:id="@+id/calculator_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
     android:layout_gravity="fill"
@@ -19,5 +19,5 @@
         android:textSize="45sp"
         android:textColor="#FF7F24"
         />
-
+"
 </GridLayout>
