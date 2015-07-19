@@ -8,7 +8,7 @@
     android:columnCount="4"
     >
     <EditText 
-        android:id="@+id/showET"
+        android:id="@+id/printET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_columnSpan="4"
@@ -19,5 +19,4 @@
         android:textSize="45sp"
         android:textColor="#FF7F24"
         />
-"
 </GridLayout>

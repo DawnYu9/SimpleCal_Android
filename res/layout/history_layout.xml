@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/history_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+    <TextView
+        android:id="@+id/historyTittle"
+        android:layout_width="match_parent"
+   	 	android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textColor="#FF7F24"
+        android:text="历史记录"
+        />
     <TextView
         android:id="@+id/historyTV"
         android:layout_width="match_parent"
    	 	android:layout_height="match_parent"
     	android:orientation="vertical"
-        android:gravity="right"
-        android:textSize="45sp"
+    	android:scrollbars="vertical"
+    	android:singleLine="false"
+        android:textSize="35sp"
         android:textColor="#FF7F24"
         ></TextView>
 

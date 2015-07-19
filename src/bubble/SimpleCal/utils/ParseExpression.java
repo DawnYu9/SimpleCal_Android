@@ -1,18 +1,16 @@
-package bubble.calculator.utils;
+package bubble.SimpleCal.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 /**
  * <p>Title: ParseInfixExp</p>
  * <p>Description: 计算中缀表达式的值</p>
  * <p>Company: </p> 
- * @version 1.0   
+ * @version 2.0.0.150717   
  * @since JDK 1.8.0_45
  * @author bubble
  * @date 2015-7-2
@@ -86,7 +84,7 @@ public class ParseExpression {
 		else if ( ! isParenthesisMatch(infixExp) ){	//括号不匹配
 			return ERROR_ARRAY;
 		}
-		else if ( infixExp.matches(".*?" + regOperator + "(" +regOperator + ")+.*?" ) ){	//出现2个相邻运算符
+		else if ( infixExp.matches(".*?(" + regOperator + ")(" +regOperator + ")+.*?" ) ){	//出现2个相邻运算符
 			return ERROR_ARRAY;
 		}
 		else if ( infixExp.matches(".*?(\\.|%)[0-9](\\.|%).*?") ){
@@ -129,7 +127,7 @@ public class ParseExpression {
 				if(lastOperand.length() != 0){
 					strArr.add(lastOperand.toString());
 				}
-				else if( (arrString.length() == 1) || (arrString.endsWith("(")) ){
+				else if( (arrString.endsWith("[")) || (arrString.endsWith("(")) ){
 					if (str.equals("-")){	//负号
 						lastOperand.append(ch);
 						continue;
@@ -234,7 +232,7 @@ public class ParseExpression {
 		String v2 = "";
 		String val = "";
 		//字符串是否为合法操作数
-		String regNum = "[0-9]+(\\.[0-9]+)?";
+		String regNum = "-?[0-9]+(\\.[0-9]+)?";
 		
 		Stack<String> stack = new Stack<String>();
 		for (String op: expression) {

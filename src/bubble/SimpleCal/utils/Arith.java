@@ -1,4 +1,4 @@
-package bubble.calculator.utils;
+package bubble.SimpleCal.utils;
 
 import java.math.BigDecimal;
 
@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  * 由于Java的简单类型不能够精确的对浮点数进行运算，这个工具类提供精
  * 确的浮点数运算，包括加减乘除和四舍五入。 </p>
  * <p>Company: </p> 
- * @version 1.0   
+ * @version 1.0
  * @since JDK 1.8.0_45
  * @date 2015-7-3 下午7:32:35
  */

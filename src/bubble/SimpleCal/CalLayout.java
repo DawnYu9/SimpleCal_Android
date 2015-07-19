@@ -1,33 +1,38 @@
-package bubble.calculator;
+package bubble.SimpleCal;
+
+import java.lang.reflect.Method;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.text.InputType;
+import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
-import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
-import bubble.calculator.utils.ParseExpression;
+import android.widget.TextView;
+import bubble.SimpleCal.utils.ParseExpression;
 
-import com.bubble.calculator.R;
+import com.bubble.SimpleCal.R;
 
 /**
- * <p>Title: MainActivity</p>
- * <p>Description: Android计算器</p>
- * @version 1.0   
+ * <p>Title: CalLayout</p>
+ * <p>Description: </p>
+ * <p>Company: </p> 
+ * @version 1.0.0.150719
  * @since JDK 1.8.0_45
  * @author bubble
- * @date 2015-7-2
+ * @date 2015-7-19 下午1:55:04
  */
-public class MainActivity extends Activity implements OnTouchListener,OnClickListener{
-	
+public class CalLayout extends GridLayout implements OnTouchListener,OnClickListener{
+	Context context;
 	final static String ERROR = "格式错误";
 	String parenthesis = "( )";
 	String[] btTexts = new String[]{
@@ -39,7 +44,8 @@ public class MainActivity extends Activity implements OnTouchListener,OnClickLis
 	};
 	
 	GridLayout gridLayout;
-	EditText showEditText;
+	EditText printET;
+	TextView historyTV;
 	
 	String resultString;
 	String exp;
@@ -50,23 +56,70 @@ public class MainActivity extends Activity implements OnTouchListener,OnClickLis
 	String regOperator = "\\+|-|×|÷";
 	char lastChar = ' ';
 
-	StringBuilder history = new StringBuilder();	//保存历史记录
+	StringBuilder historySB = new StringBuilder();	//保存历史记录
+	String history;
 	
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.calculator_layout);
-        
-        showEditText = (EditText)findViewById(R.id.showET);
-         
-        initVal();	//初始化字符串变量
-        initCalUI();	//初始化界面
-    }
-    
-    /**
+	/**
+	 * <p>Title: </p>
+	 * <p>Description: </p>
+	 */
+	public CalLayout(Context context) {
+		super(context);
+		this.context = context;
+		LayoutInflater.from(context).inflate(R.layout.calculator_layout, this);
+		printET = (EditText)findViewById(R.id.printET);
+		disableShowSoftInput(printET);
+		initVal();
+		initCalUI();
+	}
+	/**
+	 * <p>Title: disableShowSoftInput</p>
+	 * <p>Description: 禁止EditText弹出输入法，光标仍正常显示</p>
+	 * @param editText
+	 * @author 源自网络
+	 * @date 2015-7-19 下午8:25:24
+	 */
+	public void disableShowSoftInput(EditText editText){
+		if (android.os.Build.VERSION.SDK_INT <= 10) {
+				editText.setInputType(InputType.TYPE_NULL);  //强制关闭软键盘，但是编辑框没有闪烁的光标
+        } 
+		else {  //android3.0版本以上才能使用
+			//设置输入模式，窗体获得焦点，始终隐藏软键盘  
+			((Activity) getContext()).getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                     
+	        Class<EditText> cls = EditText.class;  
+	        Method method;
+	        try { 
+	            method = cls.getMethod("setShowSoftInputOnFocus",boolean.class);  
+	            method.setAccessible(true);  //设置是可访问，为true，表示禁止访问 
+	            method.invoke(editText, false);  
+	        }catch (Exception e) {
+	        	e.printStackTrace();
+	        }
+	        
+	        try { 
+	            method = cls.getMethod("setSoftInputShownOnFocus",boolean.class);  
+	            method.setAccessible(true);  
+	            method.invoke(editText, false);  
+	        }catch (Exception e) {
+	        	e.printStackTrace();			
+	        }
+        } 
+	}
+	/**
+	 * <p>Title: getHistory</p>
+	 * <p>Description: </p>
+	 * @return
+	 * @author bubble
+	 * @date 2015-7-19 
+	 */
+	public String getHistory(){
+		history = historySB.toString();
+		return history;
+	}
+	/**
      * <p>Title: initVal</p>
-     * <p>Description: 初始化</p>
+     * <p>Description: 初始化赋值</p>
      * @author bubble
      * @date 2015-7-3
      */
@@ -77,8 +130,8 @@ public class MainActivity extends Activity implements OnTouchListener,OnClickLis
     	frontExp = exp;
     	rearExp = "";
     	cursorEnd = true;
-    	showEditText.setText("");
-    	showEditText.setSelection(exp.length());
+    	printET.setText("");
+    	printET.setSelection(exp.length());
     }
  
     /**
@@ -89,16 +142,18 @@ public class MainActivity extends Activity implements OnTouchListener,OnClickLis
      */
     private void initCalUI(){
     	Point size = new Point();
-        getWindowManager().getDefaultDisplay().getSize(size);
+    	WindowManager wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+    	Display display = wm.getDefaultDisplay();
+    	display.getSize(size);
         
         int cellWidth = (int)( (size.x - 3) / 4);
         int cellHeight = (int)( (size.y - 5) / 7 );
 
-		showEditText.setTextIsSelectable(true);
-		showEditText.setBackgroundColor(Color.WHITE);
-		GridLayout.LayoutParams tvParams = (GridLayout.LayoutParams)showEditText.getLayoutParams();
+		printET.setTextIsSelectable(true);
+		printET.setBackgroundColor(Color.WHITE);
+		GridLayout.LayoutParams tvParams = (GridLayout.LayoutParams)printET.getLayoutParams();
 		tvParams.height = (int)( size.y - cellHeight * 5 - 44 );
-		showEditText.setLayoutParams(tvParams);
+		printET.setLayoutParams(tvParams);
 		
         gridLayout = (GridLayout)findViewById(R.id.calculator_main);
         GridLayout.Spec rowSpec;
@@ -110,7 +165,7 @@ public class MainActivity extends Activity implements OnTouchListener,OnClickLis
         Button btn[] = new Button[btTexts.length];
 
         for(int i = 0; i < btTexts.length; i++){
-        	btn[i] = new Button(this);
+        	btn[i] = new Button(context);
         	btn[i].setText(btTexts[i]);
         	btn[i].setTextColor(Color.parseColor("#666666"));
         	btn[i].setTextSize(30);
@@ -130,7 +185,7 @@ public class MainActivity extends Activity implements OnTouchListener,OnClickLis
         }
     }
     
-	/* (non-Javadoc)
+	 /**(non-Javadoc)
      * <p>Title: onTouch</p>
      * <p>Description: </p>
      * @see android.view.View.OnTouchListener#onTouch(android.view.View, android.view.MotionEvent)
@@ -149,15 +204,14 @@ public class MainActivity extends Activity implements OnTouchListener,OnClickLis
     		break;
     	case MotionEvent.ACTION_UP:
     		bt.setBackgroundColor(Color.WHITE);
-    		bt.performClick();
     		break;
     	default:
     		break;
     	}
-    	return true;
+    	return false;
     }
     
-    /* (non-Javadoc)
+     /**(non-Javadoc)
      * <p>Title: onClick</p>
      * <p>Description: </p>
      * @see android.view.View.OnClickListener#onClick(android.view.View)
@@ -170,7 +224,7 @@ public class MainActivity extends Activity implements OnTouchListener,OnClickLis
 		Button bt = (Button)v;
 		String btText = bt.getText().toString();
 		
-		exp = showEditText.getText().toString();
+		exp = printET.getText().toString();
         expAndResult = "";
         frontExp = exp;
         rearExp = "";
@@ -180,8 +234,8 @@ public class MainActivity extends Activity implements OnTouchListener,OnClickLis
 			initVal();
 		}
 		
-		int cursorIndex = showEditText.getSelectionStart();
-		if ( cursorIndex != showEditText.getText().length()) {
+		int cursorIndex = printET.getSelectionStart();
+		if ( cursorIndex != printET.getText().length()) {
 			cursorEnd = false;
 		}
 		if ( ! cursorEnd ){
@@ -319,8 +373,8 @@ public class MainActivity extends Activity implements OnTouchListener,OnClickLis
 				
 				resultString = ParseExpression.calInfix(exp);
 				expAndResult = exp + "\n=" + resultString;
-				history.append(expAndResult + "\n");
-				showEditText.setText(expAndResult);
+				historySB.append(expAndResult + "\n");
+				printET.setText(expAndResult);
 			}
 			else {
 				if ( cursorEnd ){
@@ -331,8 +385,8 @@ public class MainActivity extends Activity implements OnTouchListener,OnClickLis
 						inputString = "()";
 					exp = frontExp + inputString + rearExp;
 				}
-				showEditText.setText("");
-				showEditText.setText(exp);
+				printET.setText("");
+				printET.setText(exp);
 			}
 		}
 		
@@ -345,12 +399,12 @@ public class MainActivity extends Activity implements OnTouchListener,OnClickLis
 				else if( !exp.matches(".*?(\\)|[0-9])$") ){
 	    			return;
 				}
-				showEditText.setText(exp + "%");
+				printET.setText(exp + "%");
 			}
 			else{
 				if((resultString != ""))
 					return;
-				showEditText.setText(frontExp + "%" + rearExp);
+				printET.setText(frontExp + "%" + rearExp);
 			}
     	}
 		
@@ -370,36 +424,16 @@ public class MainActivity extends Activity implements OnTouchListener,OnClickLis
 			}
 			
 			frontExp = frontExp.substring(0, frontExp.length()-1);
-			showEditText.setText(frontExp + rearExp);
-			showEditText.setSelection(cursorIndex - 1);
+			printET.setText(frontExp + rearExp);
+			printET.setSelection(cursorIndex - 1);
 			return;
     	}
 		
 		if ( cursorEnd || (inputString == "=") )
-			showEditText.setSelection(showEditText.getText().length());
+			printET.setSelection(printET.getText().length());
 		else if ( !cursorEnd && inputString.matches("(\\(\\))|(0\\.)") )
-			showEditText.setSelection(cursorIndex + 2);
-		else if ( cursorIndex < showEditText.getText().length() )
-			showEditText.setSelection(cursorIndex + 1);
+			printET.setSelection(cursorIndex + 2);
+		else if ( cursorIndex < printET.getText().length() )
+			printET.setSelection(cursorIndex + 1);
 	}
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-      
 }

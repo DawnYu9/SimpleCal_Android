@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Calculator</string>
+    <string name="app_name">简算</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="history_title">历史记录</string>
-    <string name="lorem">lore</string>
+    <string name="about">关于</string>
 
 </resources>
