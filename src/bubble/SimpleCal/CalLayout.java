@@ -57,7 +57,6 @@ public class CalLayout extends GridLayout implements OnTouchListener,OnClickList
 	char lastChar = ' ';
 
 	StringBuilder historySB = new StringBuilder();	//保存历史记录
-	String history;
 	
 	/**
 	 * <p>Title: </p>
@@ -114,8 +113,16 @@ public class CalLayout extends GridLayout implements OnTouchListener,OnClickList
 	 * @date 2015-7-19 
 	 */
 	public String getHistory(){
-		history = historySB.toString();
-		return history;
+		return historySB.toString();
+	}
+	/**
+	 * <p>Title: clearHistory</p>
+	 * <p>Description: </p>
+	 * @author bubble
+	 * @date 2015-7-22 上午11:36:43
+	 */
+	public void clearCalHistory(){
+		this.historySB.setLength(0);
 	}
 	/**
      * <p>Title: initVal</p>
@@ -373,7 +380,7 @@ public class CalLayout extends GridLayout implements OnTouchListener,OnClickList
 				
 				resultString = ParseExpression.calInfix(exp);
 				expAndResult = exp + "\n=" + resultString;
-				historySB.append(expAndResult + "\n");
+				historySB.append(expAndResult.replace("\n", ",") + ";");
 				printET.setText(expAndResult);
 			}
 			else {
