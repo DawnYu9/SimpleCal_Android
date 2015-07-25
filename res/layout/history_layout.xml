@@ -4,17 +4,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <TextView
-        android:id="@+id/historyTittle"
+    <LinearLayout
         android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"  
+    	android:background="@color/white"
+    	>
+    <TextView
+        android:id="@+id/history_tittle"
+        android:layout_width="wrap_content"
    	 	android:layout_height="wrap_content"
         android:textSize="30sp"
-        android:textColor="#FF7F24"
+        android:textColor="@color/orange_text"
+        android:layout_weight="1"
+        android:paddingLeft="10dp"
+        android:paddingTop="4dp"
         android:text="历史记录"
         />
-	<ListView 
-	    android:id="@+id/history_list_view"
-	    android:layout_width="match_parent"
-   	 	android:layout_height="match_parent"
-   	 	/>"
+    <Button 
+        android:id="@+id/history_clear"
+        android:layout_width="wrap_content"
+   	 	android:layout_height="wrap_content"
+   	 	android:layout_weight="0"
+   	 	android:background="@drawable/btn_bg_selector"
+   	 	android:text="清空"
+        />
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content">
+    	<!-- 2dp渐变阴影 -->
+    	<View 
+    	    android:layout_width="match_parent"
+	   	 	android:layout_height="2dp"
+	   	 	android:background="@drawable/list_text_shadow1"
+    	    />
+    	<!-- 2dp渐变阴影 -->
+    	<FrameLayout
+	        android:layout_width="match_parent"
+	    	android:layout_height="wrap_content">
+    		<View 
+    		    android:layout_width="match_parent"
+		   	 	android:layout_height="match_parent"
+		   	 	android:background="@drawable/listview_shadow2"
+		   	 	/>
+			<ListView 
+			    android:id="@+id/history_list_view"
+			    android:layout_width="match_parent"
+		   	 	android:layout_height="match_parent"
+		   	 	/>
+		</FrameLayout>
+	</FrameLayout>
 </LinearLayout>

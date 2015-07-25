@@ -2,10 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="@drawable/lv_item_bg_selector" 
+    >
     <TextView
-        android:id="@+id/equation_view"
+        android:id="@+id/equation_item_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="15dp"
+        android:textColor="@drawable/lv_item_text_selector"
+        android:duplicateParentState="true"
         />
 </LinearLayout>

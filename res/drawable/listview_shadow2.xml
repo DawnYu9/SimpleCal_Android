@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<!-- 为了显示标题栏底部的阴影，将ListView留出2dp透明空白，后面填充白色 -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >  
+    <item>  
+        <shape android:shape="rectangle" >  
+            <solid android:color="@android:color/transparent" />   
+        </shape>  
+    </item>  
+
+    <item android:top="2dp" >  
+        <shape android:shape="rectangle" >  
+            <solid android:color="@color/white" />  
+        </shape>  
+    </item>  
+</layer-list> 

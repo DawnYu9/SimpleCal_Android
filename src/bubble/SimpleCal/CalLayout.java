@@ -31,7 +31,7 @@ import com.bubble.SimpleCal.R;
  * @author bubble
  * @date 2015-7-19 下午1:55:04
  */
-public class CalLayout extends GridLayout implements OnTouchListener,OnClickListener{
+public class CalLayout extends GridLayout implements OnClickListener{
 	Context context;
 	final static String ERROR = "格式错误";
 	String parenthesis = "( )";
@@ -153,9 +153,13 @@ public class CalLayout extends GridLayout implements OnTouchListener,OnClickList
     	Display display = wm.getDefaultDisplay();
     	display.getSize(size);
         
-        int cellWidth = (int)( (size.x - 3) / 4);
-        int cellHeight = (int)( (size.y - 5) / 7 );
-
+    	int rowCount = 7;
+    	int columnCount = 4;
+        int cellWidth = (int)( (size.x - 3) / columnCount);
+        int cellHeight = (int)( (size.y - 5) / rowCount );
+        int row;
+        int column;
+        
 		printET.setTextIsSelectable(true);
 		printET.setBackgroundColor(Color.WHITE);
 		GridLayout.LayoutParams tvParams = (GridLayout.LayoutParams)printET.getLayoutParams();
@@ -174,19 +178,25 @@ public class CalLayout extends GridLayout implements OnTouchListener,OnClickList
         for(int i = 0; i < btTexts.length; i++){
         	btn[i] = new Button(context);
         	btn[i].setText(btTexts[i]);
-        	btn[i].setTextColor(Color.parseColor("#666666"));
+        	btn[i].setTextColor(getResources().getColor(R.color.gray_text));
         	btn[i].setTextSize(30);
         	btn[i].setBackgroundColor(Color.WHITE);
         	
-        	rowSpec = GridLayout.spec(i/4 + 2);  
-        	columnSpec = GridLayout.spec(i % 4 );  
+        	row = i/columnCount + 2;
+        	column = i % columnCount;
+        	rowSpec = GridLayout.spec(row);  
+        	columnSpec = GridLayout.spec(column);  
         	cellParams = new GridLayout.LayoutParams(rowSpec, columnSpec); 
             cellParams.width = cellWidth;  
-            cellParams.height = cellHeight; 
-            cellParams.setMargins(0, 1, 1, 0);
+            cellParams.height = cellHeight;
+            if( column == (columnCount-1) )
+            	cellParams.setMargins(0, 1, 0, 0);
+            else
+            	cellParams.setMargins(0, 1, 1, 0);
             gridLayout.addView(btn[i], cellParams);  
 
-            btn[i].setOnTouchListener(this);
+//          btn[i].setOnTouchListener(this);
+            btn[i].setBackgroundResource(R.drawable.btn_bg_selector);
             
             btn[i].setOnClickListener(this);
         }
@@ -202,7 +212,7 @@ public class CalLayout extends GridLayout implements OnTouchListener,OnClickList
      * @author bubble
      * @date 2015-7-13 下午6:45:19
      */
-    @Override
+/*    @Override
     public boolean onTouch(View v, MotionEvent event) {
     	Button bt = (Button)v;
     	switch ( event.getAction() ){
@@ -217,7 +227,7 @@ public class CalLayout extends GridLayout implements OnTouchListener,OnClickList
     	}
     	return false;
     }
-    
+*/    
      /**(non-Javadoc)
      * <p>Title: onClick</p>
      * <p>Description: </p>

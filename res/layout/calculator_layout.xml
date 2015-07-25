@@ -6,8 +6,9 @@
     android:layout_gravity="fill"
     android:rowCount="7"
     android:columnCount="4"
+    android:layout_margin="1dp"
     >
-    <EditText 
+    <EditText
         android:id="@+id/printET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,6 +18,6 @@
         android:lines="2"
         android:gravity="right"
         android:textSize="45sp"
-        android:textColor="#FF7F24"
+        android:textColor="@color/orange_text"
         />
 </GridLayout>

@@ -35,7 +35,7 @@ public class EquationAdapter extends ArrayAdapter<String>{
 		if ( convertView == null){
 			view = LayoutInflater.from(getContext()).inflate(resourdId, null);
 			viewHolder = new ViewHolder();
-			viewHolder.equationView = (TextView)view.findViewById(R.id.equation_view);
+			viewHolder.equationView = (TextView)view.findViewById(R.id.equation_item_view);
 			view.setTag(viewHolder);	//½«viewHolder´æ´¢ÔÚViewÖÐ
 		}else {
 			view = convertView;

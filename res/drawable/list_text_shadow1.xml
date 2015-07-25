@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 标题栏底部的2dp渐变阴影 -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+     <item>  
+        <shape android:shape="rectangle" >  
+            <gradient  
+                android:angle="270"  
+                android:startColor="@color/gray_shadow"  
+                android:endColor="@color/white" />  
+        </shape>  
+    </item>  
+
+</layer-list>

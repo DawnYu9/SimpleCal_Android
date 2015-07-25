@@ -8,13 +8,16 @@
 package com.bubble.SimpleCal;
 
 public final class R {
-    public static final class anim {
-        public static final int push_left_in=0x7f040000;
-        public static final int push_left_out=0x7f040001;
-        public static final int push_right_in=0x7f040002;
-        public static final int push_right_out=0x7f040003;
-    }
     public static final class attr {
+    }
+    public static final class color {
+        public static final int black=0x7f040001;
+        public static final int gray_btn=0x7f040004;
+        public static final int gray_shadow=0x7f040005;
+        public static final int gray_text=0x7f040006;
+        public static final int orange_bg=0x7f040003;
+        public static final int orange_text=0x7f040002;
+        public static final int white=0x7f040000;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -28,17 +31,22 @@ public final class R {
         public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
-        public static final int btn_style=0x7f020000;
+        public static final int btn_bg_selector=0x7f020000;
         public static final int ic_launcher=0x7f020001;
-        public static final int logo=0x7f020002;
+        public static final int list_text_shadow1=0x7f020002;
+        public static final int listview_shadow2=0x7f020003;
+        public static final int logo=0x7f020004;
+        public static final int lv_item_bg_selector=0x7f020005;
+        public static final int lv_item_text_selector=0x7f020006;
     }
     public static final class id {
-        public static final int action_settings=0x7f090007;
+        public static final int action_settings=0x7f090008;
         public static final int calculator_main=0x7f090001;
-        public static final int equation_view=0x7f090003;
-        public static final int historyTittle=0x7f090005;
+        public static final int equation_item_view=0x7f090003;
+        public static final int history_clear=0x7f090006;
         public static final int history_layout=0x7f090004;
-        public static final int history_list_view=0x7f090006;
+        public static final int history_list_view=0x7f090007;
+        public static final int history_tittle=0x7f090005;
         public static final int printET=0x7f090002;
         public static final int viewPager=0x7f090000;
     }
