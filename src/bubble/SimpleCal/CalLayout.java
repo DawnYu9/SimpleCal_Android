@@ -26,7 +26,7 @@ import com.bubble.SimpleCal.R;
  * <p>Title: CalLayout</p>
  * <p>Description: </p>
  * <p>Company: </p> 
- * @version 1.0.0.150719
+ * @version 1.0.1.150728
  * @since JDK 1.8.0_45
  * @author bubble
  * @date 2015-7-19 ÏÂÎç1:55:04
@@ -251,10 +251,12 @@ public class CalLayout extends GridLayout implements OnClickListener{
 			initVal();
 		}
 		
+		cursorEnd = true;
 		int cursorIndex = printET.getSelectionStart();
 		if ( cursorIndex != printET.getText().length()) {
 			cursorEnd = false;
 		}
+		
 		if ( ! cursorEnd ){
 			if ( resultString == ""){
 				if ( (exp.length() > 0) ){
