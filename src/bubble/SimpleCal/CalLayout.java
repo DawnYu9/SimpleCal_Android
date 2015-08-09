@@ -29,14 +29,14 @@ import com.bubble.SimpleCal.R;
  * @version 1.0.1.150728
  * @since JDK 1.8.0_45
  * @author bubble
- * @date 2015-7-19 ÏÂÎç1:55:04
+ * @date 2015-7-19 ä¸‹åˆ1:55:04
  */
 public class CalLayout extends GridLayout implements OnClickListener{
 	Context context;
-	final static String ERROR = "¸ñÊ½´íÎó";
+	final static String ERROR = "æ ¼å¼é”™è¯¯";
 	String parenthesis = "( )";
 	String[] btTexts = new String[]{
-			"C", "¡Â", "¡Á", "D",
+			"C", "Ã·", "Ã—", "D",
 			"7", "8", "9", "-",
 			"4", "5", "6", "+",
 			"1", "2", "3", parenthesis,
@@ -50,13 +50,13 @@ public class CalLayout extends GridLayout implements OnClickListener{
 	String resultString;
 	String exp;
 	String expAndResult;
-	boolean cursorEnd = true;	//¹â±êÊÇ·ñÔÚÎ²¶Ë£¬Ä¬ÈÏÎªÕæ
-	String frontExp = exp;	//¹â±êÇ°µÄ±í´ïÊ½,Ä¬ÈÏ¹â±êÔÚÎ²¶Ë
-	String rearExp = "";	//¹â±êºóµÄ±í´ïÊ½,Ä¬ÈÏ¹â±êÔÚÎ²¶Ë
-	String regOperator = "\\+|-|¡Á|¡Â";
+	boolean cursorEnd = true;	//å…‰æ ‡æ˜¯å¦åœ¨å°¾ç«¯ï¼Œé»˜è®¤ä¸ºçœŸ
+	String frontExp = exp;	//å…‰æ ‡å‰çš„è¡¨è¾¾å¼,é»˜è®¤å…‰æ ‡åœ¨å°¾ç«¯
+	String rearExp = "";	//å…‰æ ‡åçš„è¡¨è¾¾å¼,é»˜è®¤å…‰æ ‡åœ¨å°¾ç«¯
+	String regOperator = "\\+|-|Ã—|Ã·";
 	char lastChar = ' ';
 
-	StringBuilder historySB = new StringBuilder();	//±£´æÀúÊ·¼ÇÂ¼
+	StringBuilder historySB = new StringBuilder();	//ä¿å­˜å†å²è®°å½•
 	
 	/**
 	 * <p>Title: </p>
@@ -73,24 +73,24 @@ public class CalLayout extends GridLayout implements OnClickListener{
 	}
 	/**
 	 * <p>Title: disableShowSoftInput</p>
-	 * <p>Description: ½ûÖ¹EditTextµ¯³öÊäÈë·¨£¬¹â±êÈÔÕı³£ÏÔÊ¾</p>
+	 * <p>Description: ç¦æ­¢EditTextå¼¹å‡ºè¾“å…¥æ³•ï¼Œå…‰æ ‡ä»æ­£å¸¸æ˜¾ç¤º</p>
 	 * @param editText
-	 * @author Ô´×ÔÍøÂç
-	 * @date 2015-7-19 ÏÂÎç8:25:24
+	 * @author æºè‡ªç½‘ç»œ
+	 * @date 2015-7-19 ä¸‹åˆ8:25:24
 	 */
 	public void disableShowSoftInput(EditText editText){
 		if (android.os.Build.VERSION.SDK_INT <= 10) {
-				editText.setInputType(InputType.TYPE_NULL);  //Ç¿ÖÆ¹Ø±ÕÈí¼üÅÌ£¬µ«ÊÇ±à¼­¿òÃ»ÓĞÉÁË¸µÄ¹â±ê
+				editText.setInputType(InputType.TYPE_NULL);  //å¼ºåˆ¶å…³é—­è½¯é”®ç›˜ï¼Œä½†æ˜¯ç¼–è¾‘æ¡†æ²¡æœ‰é—ªçƒçš„å…‰æ ‡
         } 
-		else {  //android3.0°æ±¾ÒÔÉÏ²ÅÄÜÊ¹ÓÃ
-			//ÉèÖÃÊäÈëÄ£Ê½£¬´°Ìå»ñµÃ½¹µã£¬Ê¼ÖÕÒş²ØÈí¼üÅÌ  
+		else {  //android3.0ç‰ˆæœ¬ä»¥ä¸Šæ‰èƒ½ä½¿ç”¨
+			//è®¾ç½®è¾“å…¥æ¨¡å¼ï¼Œçª—ä½“è·å¾—ç„¦ç‚¹ï¼Œå§‹ç»ˆéšè—è½¯é”®ç›˜  
 			((Activity) getContext()).getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                      
 	        Class<EditText> cls = EditText.class;  
 	        Method method;
 	        try { 
 	            method = cls.getMethod("setShowSoftInputOnFocus",boolean.class);  
-	            method.setAccessible(true);  //ÉèÖÃÊÇ¿É·ÃÎÊ£¬Îªtrue£¬±íÊ¾½ûÖ¹·ÃÎÊ 
+	            method.setAccessible(true);  //è®¾ç½®æ˜¯å¯è®¿é—®ï¼Œä¸ºtrueï¼Œè¡¨ç¤ºç¦æ­¢è®¿é—® 
 	            method.invoke(editText, false);  
 	        }catch (Exception e) {
 	        	e.printStackTrace();
@@ -119,14 +119,14 @@ public class CalLayout extends GridLayout implements OnClickListener{
 	 * <p>Title: clearHistory</p>
 	 * <p>Description: </p>
 	 * @author bubble
-	 * @date 2015-7-22 ÉÏÎç11:36:43
+	 * @date 2015-7-22 ä¸Šåˆ11:36:43
 	 */
 	public void clearCalHistory(){
 		this.historySB.setLength(0);
 	}
 	/**
      * <p>Title: initVal</p>
-     * <p>Description: ³õÊ¼»¯¸³Öµ</p>
+     * <p>Description: åˆå§‹åŒ–èµ‹å€¼</p>
      * @author bubble
      * @date 2015-7-3
      */
@@ -143,7 +143,7 @@ public class CalLayout extends GridLayout implements OnClickListener{
  
     /**
      * <p>Title: initCalUI</p>
-     * <p>Description: ³õÊ¼»¯¼ÆËãÆ÷½çÃæ</p>
+     * <p>Description: åˆå§‹åŒ–è®¡ç®—å™¨ç•Œé¢</p>
      * @author bubble
      * @date 2015-7-15 
      */
@@ -172,7 +172,7 @@ public class CalLayout extends GridLayout implements OnClickListener{
         gridLayout.setBackgroundColor(Color.parseColor("#D1D1D1"));
         GridLayout.LayoutParams cellParams;
         
-        //ÅúÁ¿³õÊ¼»¯°´Å¥
+        //æ‰¹é‡åˆå§‹åŒ–æŒ‰é’®
         Button btn[] = new Button[btTexts.length];
 
         for(int i = 0; i < btTexts.length; i++){
@@ -210,7 +210,7 @@ public class CalLayout extends GridLayout implements OnClickListener{
      * @param event
      * @return
      * @author bubble
-     * @date 2015-7-13 ÏÂÎç6:45:19
+     * @date 2015-7-13 ä¸‹åˆ6:45:19
      */
 /*    @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -234,7 +234,7 @@ public class CalLayout extends GridLayout implements OnClickListener{
      * @see android.view.View.OnClickListener#onClick(android.view.View)
      * @param v
      * @author bubble
-     * @date 2015-7-13 ÏÂÎç6:45:32
+     * @date 2015-7-13 ä¸‹åˆ6:45:32
      */
     @Override
 	public void onClick(View v) {
@@ -276,32 +276,32 @@ public class CalLayout extends GridLayout implements OnClickListener{
 		}
 		
 		
-		if(btText.matches("[0-9]|\\+|-|¡Á|¡Â|\\.|(\\( \\))|=")){
-			//ÒÑ¾­ÔËËã¹ıÒ»´Î²¢ÓĞÁËÔËËã½á¹û
+		if(btText.matches("[0-9]|\\+|-|Ã—|Ã·|\\.|(\\( \\))|=")){
+			//å·²ç»è¿ç®—è¿‡ä¸€æ¬¡å¹¶æœ‰äº†è¿ç®—ç»“æœ
 			if((resultString != "")){
-				//ÅĞ¶Ï¹â±êÎ»ÖÃ
-				if ( cursorEnd ){	//¹â±êÔÚÎ²¶Ë
-					if(ParseExpression.isOperator(inputString)){	//Èç¹ûÊäÈëµÄÊÇÔËËã·û£¬±íÃ÷ÊÇ¼ÌĞøÔËËã
+				//åˆ¤æ–­å…‰æ ‡ä½ç½®
+				if ( cursorEnd ){	//å…‰æ ‡åœ¨å°¾ç«¯
+					if(ParseExpression.isOperator(inputString)){	//å¦‚æœè¾“å…¥çš„æ˜¯è¿ç®—ç¬¦ï¼Œè¡¨æ˜æ˜¯ç»§ç»­è¿ç®—
 						exp = resultString;
 						resultString = "";
 					}
-					else if(inputString.matches("=") ){	//ÈôÊäÈë"="£¬¼ÌĞøÖØ¸´ÉÏÒ»´ÎµÄÔËËã·ûÔËËã
+					else if(inputString.matches("=") ){	//è‹¥è¾“å…¥"="ï¼Œç»§ç»­é‡å¤ä¸Šä¸€æ¬¡çš„è¿ç®—ç¬¦è¿ç®—
 						exp = exp.replaceAll("\n=.*", "");
 						String[] op = ParseExpression.splitInfixExp(exp);
 						int opLen = op.length;
 						exp = resultString + op[opLen - 2] + op[opLen - 1];
 						resultString = "";
 					}
-					else if(inputString == parenthesis){	//ÈôÊäÈëÀ¨ºÅ
+					else if(inputString == parenthesis){	//è‹¥è¾“å…¥æ‹¬å·
 						exp = "(" + resultString;
 						inputString = "";
 						resultString = "";
 					}
-					else {	//ÖØĞÂ¿ªÊ¼ĞÂµÄÔËËã
+					else {	//é‡æ–°å¼€å§‹æ–°çš„è¿ç®—
 						initVal();
 					}
 				}
-				else{	//¹â±ê²»ÔÚÎ²¶Ë£¬Ôò¿ªÊ¼ĞÂµÄÔËËã
+				else{	//å…‰æ ‡ä¸åœ¨å°¾ç«¯ï¼Œåˆ™å¼€å§‹æ–°çš„è¿ç®—
 					initVal();
 				}
 			}
@@ -344,7 +344,7 @@ public class CalLayout extends GridLayout implements OnClickListener{
 						if( ! inputString.matches("-") )
 							return;
 					}
-					//Èç¹ûlastCHarÊÇÔËËã·ûÇÒµ¹ÊıµÚ¶ş¸ö×Ö·ûÊÇÊı×Ö£¬ÔòÌæ»»³ÉinputÊäÈëµÄÔËËã·û
+					//å¦‚æœlastCHaræ˜¯è¿ç®—ç¬¦ä¸”å€’æ•°ç¬¬äºŒä¸ªå­—ç¬¦æ˜¯æ•°å­—ï¼Œåˆ™æ›¿æ¢æˆinputè¾“å…¥çš„è¿ç®—ç¬¦
 					else if(exp.length() > 1){
 						lastChar = exp.charAt(exp.length()-1);
 						String penultCharString = String.valueOf(exp.charAt(exp.length()-2));
@@ -383,8 +383,8 @@ public class CalLayout extends GridLayout implements OnClickListener{
 			}
 			
 			if (inputString.equals("=")) {
-				//Èô±í´ïÊ½ÒÔÔËËã·û½áÎ²£¬ÔòÈ¥µôÄ©¶ËµÄÔËËã·û ÔÙÖ´ĞĞÔËËã
-				exp = exp.replaceAll("(.*?)(\\+|-|¡Á|¡Â)(\\(?)$", "$1");
+				//è‹¥è¡¨è¾¾å¼ä»¥è¿ç®—ç¬¦ç»“å°¾ï¼Œåˆ™å»æ‰æœ«ç«¯çš„è¿ç®—ç¬¦ å†æ‰§è¡Œè¿ç®—
+				exp = exp.replaceAll("(.*?)(\\+|-|Ã—|Ã·)(\\(?)$", "$1");
 				if( !ParseExpression.isParenthesisMatch(exp))
 					return;
 				if( exp == "")

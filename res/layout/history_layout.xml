@@ -19,7 +19,7 @@
         android:layout_weight="1"
         android:paddingLeft="10dp"
         android:paddingTop="4dp"
-        android:text="历史记录"
+        android:text="@string/history_title"
         />
     <Button 
         android:id="@+id/history_clear"
@@ -27,7 +27,7 @@
    	 	android:layout_height="wrap_content"
    	 	android:layout_weight="0"
    	 	android:background="@drawable/btn_bg_selector"
-   	 	android:text="清空"
+   	 	android:text="@string/clear_history"
         />
     </LinearLayout>
     <FrameLayout

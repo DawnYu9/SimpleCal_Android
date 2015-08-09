@@ -34,7 +34,7 @@ import com.bubble.SimpleCal.R;
  * @version 2.0.0.150723   
  * @since JDK 1.8.0_45
  * @author bubble
- * @date 2015-7-19 ÏÂÎç2:42:57
+ * @date 2015-7-19 ä¸‹åˆ2:42:57
  */
 public class HistoryLayout extends LinearLayout implements OnClickListener,OnTouchListener,OnItemClickListener{
 	Context context;
@@ -48,7 +48,7 @@ public class HistoryLayout extends LinearLayout implements OnClickListener,OnTou
 	String result;
 	String[] hisItem;
 	EquationAdapter eAdapter;
-	boolean appendHistory;	//ÊÇ·ñĞèÒª×·¼Óhistory×Ö·û´®
+	boolean appendHistory;	//æ˜¯å¦éœ€è¦è¿½åŠ historyå­—ç¬¦ä¸²
 	public HistoryLayout(Context context) {
 		super(context);
 		this.context = context;
@@ -64,14 +64,14 @@ public class HistoryLayout extends LinearLayout implements OnClickListener,OnTou
 	}
 	 /* (non-Javadoc)
 	 * <p>Title: onItemClick</p>
-	 * <p>Description: µ¥»÷¸´ÖÆµ½¼ôÌù°å</p>
+	 * <p>Description: å•å‡»å¤åˆ¶åˆ°å‰ªè´´æ¿</p>
 	 * @see android.widget.AdapterView.OnItemClickListener#onItemClick(android.widget.AdapterView, android.view.View, int, long)
 	 * @param parent
 	 * @param view
 	 * @param position
 	 * @param id
 	 * @author bubble
-	 * @date 2015-7-25 ÉÏÎç10:11:34
+	 * @date 2015-7-25 ä¸Šåˆ10:11:34
 	 */
 	@Override  
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {     
@@ -82,7 +82,7 @@ public class HistoryLayout extends LinearLayout implements OnClickListener,OnTou
 		ClipData clip = ClipData.newPlainText("simple text",str);
 	 	clipboard.setPrimaryClip(clip);
 	 	
-	 	Toast.makeText(context, "ÒÑ¸´ÖÆµ½¼ôÌù°å", Toast.LENGTH_SHORT).show();
+	 	Toast.makeText(context, "å·²å¤åˆ¶åˆ°å‰ªè´´æ¿", Toast.LENGTH_SHORT).show();
 	} 
 	 /**
 	 * <p>Title: onTouch</p>
@@ -91,7 +91,7 @@ public class HistoryLayout extends LinearLayout implements OnClickListener,OnTou
 	 * @param event
 	 * @return
 	 * @author bubble
-	 * @date 2015-7-24 ÏÂÎç11:29:43
+	 * @date 2015-7-24 ä¸‹åˆ11:29:43
 	 */
 	@Override
 	    public boolean onTouch(View v, MotionEvent event) {
@@ -114,7 +114,7 @@ public class HistoryLayout extends LinearLayout implements OnClickListener,OnTou
 	 * @see android.view.View.OnClickListener#onClick(android.view.View)
 	 * @param v
 	 * @author bubble
-	 * @date 2015-7-24 ÏÂÎç11:14:21
+	 * @date 2015-7-24 ä¸‹åˆ11:14:21
 	 */
 	@Override
 	public void onClick(View v) {
@@ -127,7 +127,7 @@ public class HistoryLayout extends LinearLayout implements OnClickListener,OnTou
 	 * <p>Description: </p>
 	 * @param calHistory
 	 * @author bubble
-	 * @date 2015-7-21 ÉÏÎç12:16:45
+	 * @date 2015-7-21 ä¸Šåˆ12:16:45
 	 */
 	public void updateHistory(String calHistory){
 		hisHistorySB.append(calHistory);
@@ -158,7 +158,7 @@ public class HistoryLayout extends LinearLayout implements OnClickListener,OnTou
 	 * <p>Description: </p>
 	 * @return
 	 * @author bubble
-	 * @date 2015-7-22 ÉÏÎç9:42:06
+	 * @date 2015-7-22 ä¸Šåˆ9:42:06
 	 */
 	public String load(){
 		FileInputStream in = null;

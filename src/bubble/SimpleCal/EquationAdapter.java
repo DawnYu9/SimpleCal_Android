@@ -36,10 +36,10 @@ public class EquationAdapter extends ArrayAdapter<String>{
 			view = LayoutInflater.from(getContext()).inflate(resourdId, null);
 			viewHolder = new ViewHolder();
 			viewHolder.equationView = (TextView)view.findViewById(R.id.equation_item_view);
-			view.setTag(viewHolder);	//将viewHolder存储在View中
+			view.setTag(viewHolder);	//陆芦viewHolder麓忙麓垄脭脷View脰脨
 		}else {
 			view = convertView;
-			viewHolder = (ViewHolder)view.getTag();	//重新获取viewHolder
+			viewHolder = (ViewHolder)view.getTag();	//脰脴脨脗禄帽脠隆viewHolder
 		}
 		viewHolder.equationView.setText(equation);
 		return view;
@@ -49,4 +49,3 @@ public class EquationAdapter extends ArrayAdapter<String>{
 		TextView equationView;
 	}
 }
-

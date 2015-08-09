@@ -5,25 +5,25 @@ import java.math.BigDecimal;
 /**
  * <p>Title: Arith</p>
  * <p>Description:
- * ÓÉÓÚJavaµÄ¼òµ¥ÀàĞÍ²»ÄÜ¹»¾«È·µÄ¶Ô¸¡µãÊı½øĞĞÔËËã£¬Õâ¸ö¹¤¾ßÀàÌá¹©¾«
- * È·µÄ¸¡µãÊıÔËËã£¬°üÀ¨¼Ó¼õ³Ë³ıºÍËÄÉáÎåÈë¡£ </p>
+ * ç”±äºJavaçš„ç®€å•ç±»å‹ä¸èƒ½å¤Ÿç²¾ç¡®çš„å¯¹æµ®ç‚¹æ•°è¿›è¡Œè¿ç®—ï¼Œè¿™ä¸ªå·¥å…·ç±»æä¾›ç²¾
+ * ç¡®çš„æµ®ç‚¹æ•°è¿ç®—ï¼ŒåŒ…æ‹¬åŠ å‡ä¹˜é™¤å’Œå››èˆäº”å…¥ã€‚ </p>
  * <p>Company: </p> 
  * @version 1.0
  * @since JDK 1.8.0_45
- * @date 2015-7-3 ÏÂÎç7:32:35
+ * @date 2015-7-3 ä¸‹åˆ7:32:35
  */
 public class Arith {
-	//Ä¬ÈÏ³ı·¨ÔËËã¾«¶È
+	//é»˜è®¤é™¤æ³•è¿ç®—ç²¾åº¦
     private static final int DEF_DIV_SCALE = 10;
-    //Õâ¸öÀà²»ÄÜÊµÀı»¯
+    //è¿™ä¸ªç±»ä¸èƒ½å®ä¾‹åŒ–
     private Arith(){
     }
 
     /**
-     * Ìá¹©¾«È·µÄ¼Ó·¨ÔËËã¡£
-     * @param v1 ±»¼ÓÊı
-     * @param v2 ¼ÓÊı
-     * @return Á½¸ö²ÎÊıµÄºÍ
+     * æä¾›ç²¾ç¡®çš„åŠ æ³•è¿ç®—ã€‚
+     * @param v1 è¢«åŠ æ•°
+     * @param v2 åŠ æ•°
+     * @return ä¸¤ä¸ªå‚æ•°çš„å’Œ
      */
     public static String add(String v1,String v2){
         BigDecimal b1 = new BigDecimal(v1);
@@ -31,10 +31,10 @@ public class Arith {
         return b1.add(b2).toString();
     }
     /**
-     * Ìá¹©¾«È·µÄ¼õ·¨ÔËËã¡£
-     * @param v1 ±»¼õÊı
-     * @param v2 ¼õÊı
-     * @return Á½¸ö²ÎÊıµÄ²î
+     * æä¾›ç²¾ç¡®çš„å‡æ³•è¿ç®—ã€‚
+     * @param v1 è¢«å‡æ•°
+     * @param v2 å‡æ•°
+     * @return ä¸¤ä¸ªå‚æ•°çš„å·®
      */
     public static String sub(String v1,String v2){
         BigDecimal b1 = new BigDecimal(v1);
@@ -42,10 +42,10 @@ public class Arith {
         return b1.subtract(b2).toString();
     }
     /**
-     * Ìá¹©¾«È·µÄ³Ë·¨ÔËËã¡£
-     * @param v1 ±»³ËÊı
-     * @param v2 ³ËÊı
-     * @return Á½¸ö²ÎÊıµÄ»ı
+     * æä¾›ç²¾ç¡®çš„ä¹˜æ³•è¿ç®—ã€‚
+     * @param v1 è¢«ä¹˜æ•°
+     * @param v2 ä¹˜æ•°
+     * @return ä¸¤ä¸ªå‚æ•°çš„ç§¯
      */
     public static String mul(String v1,String v2){
         BigDecimal b1 = new BigDecimal(v1);
@@ -54,23 +54,23 @@ public class Arith {
     }
 
     /**
-     * Ìá¹©£¨Ïà¶Ô£©¾«È·µÄ³ı·¨ÔËËã£¬µ±·¢Éú³ı²»¾¡µÄÇé¿öÊ±£¬¾«È·µ½
-     * Ğ¡ÊıµãÒÔºó10Î»£¬ÒÔºóµÄÊı×ÖËÄÉáÎåÈë¡£
-     * @param v1 ±»³ıÊı
-     * @param v2 ³ıÊı
-     * @return Á½¸ö²ÎÊıµÄÉÌ
+     * æä¾›ï¼ˆç›¸å¯¹ï¼‰ç²¾ç¡®çš„é™¤æ³•è¿ç®—ï¼Œå½“å‘ç”Ÿé™¤ä¸å°½çš„æƒ…å†µæ—¶ï¼Œç²¾ç¡®åˆ°
+     * å°æ•°ç‚¹ä»¥å10ä½ï¼Œä»¥åçš„æ•°å­—å››èˆäº”å…¥ã€‚
+     * @param v1 è¢«é™¤æ•°
+     * @param v2 é™¤æ•°
+     * @return ä¸¤ä¸ªå‚æ•°çš„å•†
      */
     public static String div(String v1,String v2){
         return div(v1,v2,DEF_DIV_SCALE);
     }
 
     /**
-     * Ìá¹©£¨Ïà¶Ô£©¾«È·µÄ³ı·¨ÔËËã¡£µ±·¢Éú³ı²»¾¡µÄÇé¿öÊ±£¬ÓÉscale²ÎÊıÖ¸
-     * ¶¨¾«¶È£¬ÒÔºóµÄÊı×ÖËÄÉáÎåÈë¡£
-     * @param v1 ±»³ıÊı
-     * @param v2 ³ıÊı
-     * @param scale ±íÊ¾±íÊ¾ĞèÒª¾«È·µ½Ğ¡ÊıµãÒÔºó¼¸Î»¡£
-     * @return Á½¸ö²ÎÊıµÄÉÌ
+     * æä¾›ï¼ˆç›¸å¯¹ï¼‰ç²¾ç¡®çš„é™¤æ³•è¿ç®—ã€‚å½“å‘ç”Ÿé™¤ä¸å°½çš„æƒ…å†µæ—¶ï¼Œç”±scaleå‚æ•°æŒ‡
+     * å®šç²¾åº¦ï¼Œä»¥åçš„æ•°å­—å››èˆäº”å…¥ã€‚
+     * @param v1 è¢«é™¤æ•°
+     * @param v2 é™¤æ•°
+     * @param scale è¡¨ç¤ºè¡¨ç¤ºéœ€è¦ç²¾ç¡®åˆ°å°æ•°ç‚¹ä»¥åå‡ ä½ã€‚
+     * @return ä¸¤ä¸ªå‚æ•°çš„å•†
      */
     public static String div(String v1,String v2,int scale){
         if(scale<0){
@@ -83,10 +83,10 @@ public class Arith {
     }
 
     /**
-     * Ìá¹©¾«È·µÄĞ¡ÊıÎ»ËÄÉáÎåÈë´¦Àí¡£
-     * @param v ĞèÒªËÄÉáÎåÈëµÄÊı×Ö
-     * @param scale Ğ¡Êıµãºó±£Áô¼¸Î»
-     * @return ËÄÉáÎåÈëºóµÄ½á¹û
+     * æä¾›ç²¾ç¡®çš„å°æ•°ä½å››èˆäº”å…¥å¤„ç†ã€‚
+     * @param v éœ€è¦å››èˆäº”å…¥çš„æ•°å­—
+     * @param scale å°æ•°ç‚¹åä¿ç•™å‡ ä½
+     * @return å››èˆäº”å…¥åçš„ç»“æœ
      */
     public static String round(String v,int scale){
 

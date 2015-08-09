@@ -15,7 +15,7 @@ import android.view.ViewGroup;
  * @version 1.0.0.150719 
  * @since JDK 1.8.0_45
  * @author bubble
- * @date 2015-7-18 ÉÏÎç10:38:58
+ * @date 2015-7-18 ä¸Šåˆ10:38:58
  */
 public class MyPagerAdapter extends PagerAdapter {  
 	private ArrayList<View> viewList;
@@ -49,12 +49,12 @@ public class MyPagerAdapter extends PagerAdapter {
 
     @Override  
     public void destroyItem(ViewGroup container, int position, Object object){     
-        container.removeView(viewList.get(position));//É¾³ıÒ³¿¨  
+        container.removeView(viewList.get(position));//åˆ é™¤é¡µå¡  
     }  
 
     @Override  
-    public Object instantiateItem(ViewGroup container, int position) {  //Õâ¸ö·½·¨ÓÃÀ´ÊµÀı»¯Ò³¿¨         
-        container.addView(viewList.get(position));//Ìí¼ÓÒ³¿¨  
+    public Object instantiateItem(ViewGroup container, int position) {  //è¿™ä¸ªæ–¹æ³•ç”¨æ¥å®ä¾‹åŒ–é¡µå¡         
+        container.addView(viewList.get(position));//æ·»åŠ é¡µå¡  
         return viewList.get(position);  
     }  
 

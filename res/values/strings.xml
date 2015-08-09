@@ -6,5 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="history_title">历史记录</string>
     <string name="about">关于</string>
+    <string name="clear_history">清空</string>
 
 </resources>

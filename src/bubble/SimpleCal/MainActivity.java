@@ -22,7 +22,7 @@ import com.bubble.SimpleCal.R;
 
 /**
  * <p>Title: MainActivity</p>
- * <p>Description: Android¼ÆËãÆ÷</p>
+ * <p>Description: Androidè®¡ç®—å™¨</p>
  * @version 3.0.0.150723 
  * @since JDK 1.8.0_45
  * @author bubble
@@ -58,14 +58,14 @@ public class MainActivity extends Activity implements OnPageChangeListener{
         viewPager.addOnPageChangeListener(this);
         setContentView(viewGroup); 
     }
-    //µ±»¬¶¯×´Ì¬¸Ä±äÊ±µ÷ÓÃ
+    //å½“æ»‘åŠ¨çŠ¶æ€æ”¹å˜æ—¶è°ƒç”¨
     @Override
     public void onPageScrollStateChanged(int arg0) {
         // TODO Auto-generated method stub
         
     }
 
-    //µ±µ±Ç°Ò³Ãæ±»»¬¶¯Ê±µ÷ÓÃ
+    //å½“å½“å‰é¡µé¢è¢«æ»‘åŠ¨æ—¶è°ƒç”¨
     @Override
     public void onPageScrolled(int arg0, float arg1, int arg2) {
         // TODO Auto-generated method stub
@@ -78,7 +78,7 @@ public class MainActivity extends Activity implements OnPageChangeListener{
      * @see android.support.v4.view.ViewPager.OnPageChangeListener#onPageSelected(int)
      * @param position
      * @author bubble
-     * @date 2015-7-19 ÏÂÎç7:03:09
+     * @date 2015-7-19 ä¸‹åˆ7:03:09
      */
     @Override
     public void onPageSelected(int position) {
@@ -87,7 +87,7 @@ public class MainActivity extends Activity implements OnPageChangeListener{
     		break;
     	case 1:
     		calHistory = calView.getHistory();
-    		if ( isFirstOpenHistory ) {	//µÚÒ»´Î´ò¿ª£¬¼ÓÔØ±¾µØÀúÊ·¼ÇÂ¼
+    		if ( isFirstOpenHistory ) {	//ç¬¬ä¸€æ¬¡æ‰“å¼€ï¼ŒåŠ è½½æœ¬åœ°å†å²è®°å½•
     			isFirstOpenHistory = false;
     			hisHistory = hisView.load();
     			if ( calHistory != "") {
@@ -112,7 +112,7 @@ public class MainActivity extends Activity implements OnPageChangeListener{
      * <p>Description: </p>
      * @see android.app.Activity#onDestroy()
      * @author bubble
-     * @date 2015-7-22 ÉÏÎç09:34:19
+     * @date 2015-7-22 ä¸Šåˆ09:34:19
      */
     @Override
     public void onDestroy(){
@@ -126,7 +126,7 @@ public class MainActivity extends Activity implements OnPageChangeListener{
      * <p>Description: </p>
      * @param s
      * @author bubble
-     * @date 2015-7-22 ÉÏÎç09:34:01
+     * @date 2015-7-22 ä¸Šåˆ09:34:01
      */
     public void save(String s){
     	FileOutputStream out = null;

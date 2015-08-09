@@ -63,6 +63,7 @@ public final class R {
         public static final int about=0x7f060004;
         public static final int action_settings=0x7f060002;
         public static final int app_name=0x7f060000;
+        public static final int clear_history=0x7f060005;
         public static final int hello_world=0x7f060001;
         public static final int history_title=0x7f060003;
     }

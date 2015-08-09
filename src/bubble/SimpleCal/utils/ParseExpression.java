@@ -8,7 +8,7 @@ import java.util.Stack;
 
 /**
  * <p>Title: ParseInfixExp</p>
- * <p>Description: ¼ÆËãÖĞ×º±í´ïÊ½µÄÖµ</p>
+ * <p>Description: è®¡ç®—ä¸­ç¼€è¡¨è¾¾å¼çš„å€¼</p>
  * <p>Company: </p> 
  * @version 2.0.0.150717   
  * @since JDK 1.8.0_45
@@ -16,22 +16,22 @@ import java.util.Stack;
  * @date 2015-7-2
  */
 public class ParseExpression {
-	final static String ERROR = "¸ñÊ½´íÎó";
+	final static String ERROR = "æ ¼å¼é”™è¯¯";
 	final static String[] ERROR_ARRAY = ERROR.split("");
-	static String regOperator = "\\+|-|¡Á|¡Â";
+	static String regOperator = "\\+|-|Ã—|Ã·";
 	
 	private static final Map<String, Integer> OPERATORS = new HashMap<String, Integer>();
  
-	static {	//ÔËËã·ûÓÅÏÈ¼¶
+	static {	//è¿ç®—ç¬¦ä¼˜å…ˆçº§
 		OPERATORS.put( "+", 0);
 		OPERATORS.put( "-", 0);
-		OPERATORS.put( "¡Á", 1);
-		OPERATORS.put( "¡Â", 1);
+		OPERATORS.put( "Ã—", 1);
+		OPERATORS.put( "Ã·", 1);
 	 }
 
 	/**
 	 * <p>Title: isOperator</p>
-	 * <p>Description: ÅĞ¶Ï×Ö·û´®ÊÇ·ñÊÇÔËËã·û</p>
+	 * <p>Description: åˆ¤æ–­å­—ç¬¦ä¸²æ˜¯å¦æ˜¯è¿ç®—ç¬¦</p>
 	 * @param str 
 	 * @return boolean
 	 * @date 2015-7-2 
@@ -42,11 +42,11 @@ public class ParseExpression {
 	
 	/**
 	 * <p>Title: isOperator</p>
-	 * <p>Description: ÅĞ¶Ï×Ö·ûÊÇ·ñÊÇÔËËã·û</p>
+	 * <p>Description: åˆ¤æ–­å­—ç¬¦æ˜¯å¦æ˜¯è¿ç®—ç¬¦</p>
 	 * @param ch
 	 * @return boolean
 	 * @author bubble
-	 * @date 2015-7-13 ÏÂÎç6:02:58
+	 * @date 2015-7-13 ä¸‹åˆ6:02:58
 	 */
 	public static boolean isOperator(char ch) {
 		String s = String.valueOf(ch);
@@ -56,10 +56,10 @@ public class ParseExpression {
  
 	/**
 	 * <p>Title: comparePrior</p>
-	 * <p>Description: ±È½ÏÔËËã·ûÓÅÏÈ¼¶</p>
-	 * @param op1 ÔËËã·û
-	 * @param op2 ÔËËã·û
-	 * @return op1<op2,·µ»Ø¸ºÊı£¬op1=op2·µ»Ø0£¬op1>op2·µ»ØÕıÊı
+	 * <p>Description: æ¯”è¾ƒè¿ç®—ç¬¦ä¼˜å…ˆçº§</p>
+	 * @param op1 è¿ç®—ç¬¦
+	 * @param op2 è¿ç®—ç¬¦
+	 * @return op1<op2,è¿”å›è´Ÿæ•°ï¼Œop1=op2è¿”å›0ï¼Œop1>op2è¿”å›æ­£æ•°
 	 * @date 2015-7-2
 	 */
 	public static final int comparePrior(String op1, String op2) {
@@ -72,19 +72,19 @@ public class ParseExpression {
  
 	/**
 	 * <p>Title: splitInfixExp</p>
-	 * <p>Description: ·ÖÀëÖĞ×º±í´ïÊ½£¬½«²Ù×÷Êı¡¢ÔËËã·û·ÖÀë²¢´æ½øÊı×éÀï</p>
-	 * @param infixExp ÖĞ×º±í´ïÊ½
-	 * @return ·µ»Ø´æ·Å²Ù×÷Êı¡¢ÔËËã·ûµÄStringÊı×é
+	 * <p>Description: åˆ†ç¦»ä¸­ç¼€è¡¨è¾¾å¼ï¼Œå°†æ“ä½œæ•°ã€è¿ç®—ç¬¦åˆ†ç¦»å¹¶å­˜è¿›æ•°ç»„é‡Œ</p>
+	 * @param infixExp ä¸­ç¼€è¡¨è¾¾å¼
+	 * @return è¿”å›å­˜æ”¾æ“ä½œæ•°ã€è¿ç®—ç¬¦çš„Stringæ•°ç»„
 	 * @date 2015-7-2
 	 */
 	public static String[] splitInfixExp(String infixExp) {
 		if ( infixExp.matches(".*?\\(|" + regOperator + "$")){
 	    	   return ERROR_ARRAY;
 	       }
-		else if ( ! isParenthesisMatch(infixExp) ){	//À¨ºÅ²»Æ¥Åä
+		else if ( ! isParenthesisMatch(infixExp) ){	//æ‹¬å·ä¸åŒ¹é…
 			return ERROR_ARRAY;
 		}
-		else if ( infixExp.matches(".*?(" + regOperator + ")(" +regOperator + ")+.*?" ) ){	//³öÏÖ2¸öÏàÁÚÔËËã·û
+		else if ( infixExp.matches(".*?(" + regOperator + ")(" +regOperator + ")+.*?" ) ){	//å‡ºç°2ä¸ªç›¸é‚»è¿ç®—ç¬¦
 			return ERROR_ARRAY;
 		}
 		else if ( infixExp.matches(".*?(\\.|%)[0-9](\\.|%).*?") ){
@@ -94,7 +94,7 @@ public class ParseExpression {
 		ArrayList<String> strArr = new ArrayList<String>();
        
 		StringBuilder lastOperand = new StringBuilder();
-		//±éÀúÖĞ×º×Ö·ûÊı×é
+		//éå†ä¸­ç¼€å­—ç¬¦æ•°ç»„
 		for ( char ch: infixExp.toCharArray()) {
 			String str = Character.toString(ch);
 			String arrString = strArr.toString().replaceAll("(.*?)(\\])$", "$1");
@@ -128,7 +128,7 @@ public class ParseExpression {
 					strArr.add(lastOperand.toString());
 				}
 				else if( (arrString.endsWith("[")) || (arrString.endsWith("(")) ){
-					if (str.equals("-")){	//¸ººÅ
+					if (str.equals("-")){	//è´Ÿå·
 						lastOperand.append(ch);
 						continue;
 					}
@@ -155,9 +155,9 @@ public class ParseExpression {
 	
 	/**
 	 * <p>Title: infix2Suffix</p>
-	 * <p>Description: ½«ÖĞ×º±í´ïÊ½×ª»»³Éºó×º±í´ïÊ½</p>
-	 * @param infixExp ÖĞ×º±í´ïÊ½
-	 * @return ºó×º±í´ïÊ½
+	 * <p>Description: å°†ä¸­ç¼€è¡¨è¾¾å¼è½¬æ¢æˆåç¼€è¡¨è¾¾å¼</p>
+	 * @param infixExp ä¸­ç¼€è¡¨è¾¾å¼
+	 * @return åç¼€è¡¨è¾¾å¼
 	 * @date 2015-7-2
 	 */
 	public static String infix2Suffix(String infixExp) {
@@ -220,9 +220,9 @@ public class ParseExpression {
 	
 	/**
 	 * <p>Title: calSuffix</p>
-	 * <p>Description: ¼ÆËãºó×º±í´ïÊ½µÄÖµ</p>
-	 * @param suffixExp ºó×º±í´ïÊ½
-	 * @return ±í´ïÊ½µÄÖµ
+	 * <p>Description: è®¡ç®—åç¼€è¡¨è¾¾å¼çš„å€¼</p>
+	 * @param suffixExp åç¼€è¡¨è¾¾å¼
+	 * @return è¡¨è¾¾å¼çš„å€¼
 	 * @date 2015-7-2
 	 */
 	public static String calSuffix(String suffixExp) {
@@ -231,7 +231,7 @@ public class ParseExpression {
 		String v1 = "";
 		String v2 = "";
 		String val = "";
-		//×Ö·û´®ÊÇ·ñÎªºÏ·¨²Ù×÷Êı
+		//å­—ç¬¦ä¸²æ˜¯å¦ä¸ºåˆæ³•æ“ä½œæ•°
 		String regNum = "-?[0-9]+(\\.[0-9]+)?";
 		
 		Stack<String> stack = new Stack<String>();
@@ -251,10 +251,10 @@ public class ParseExpression {
 						case '-':
 							val = Arith.sub(v1, v2);
 							break;
-						case '¡Á':
+						case 'Ã—':
 							val = Arith.mul(v1, v2);
 							break;
-						case '¡Â':
+						case 'Ã·':
 							if( v2.matches("0") )
 								return ERROR;
 							val = Arith.div(v1, v2);
@@ -291,10 +291,10 @@ public class ParseExpression {
 	    	return ERROR;
 	    }
 		
-		//¸ñÊ½»¯ÊıÖµ
+		//æ ¼å¼åŒ–æ•°å€¼
 		if(resultString.indexOf(".") > 0){  
-			resultString = resultString.replaceAll("(0+?)$", "");//È¥µô¶àÓàµÄ0  
-			resultString = resultString.replaceAll("(\\.)$", "");//Èç×îºóÒ»Î»ÊÇ.ÔòÈ¥µô  
+			resultString = resultString.replaceAll("(0+?)$", "");//å»æ‰å¤šä½™çš„0  
+			resultString = resultString.replaceAll("(\\.)$", "");//å¦‚æœ€åä¸€ä½æ˜¯.åˆ™å»æ‰  
         }  
 		else if(resultString.indexOf(".") == 0){
 			resultString = "0" + resultString;
@@ -304,12 +304,12 @@ public class ParseExpression {
 	}
 	 
  	// Evaluate an infix expression.
-	//¼ÆËãÖĞ×º±í´ïÊ½
+	//è®¡ç®—ä¸­ç¼€è¡¨è¾¾å¼
 	/**
 	 * <p>Title: calInfix</p>
-	 * <p>Description: ¼ÆËãÖĞ×º±í´ïÊ½µÄÖµ</p>
-	 * @param exp ÖĞ×º±í´ïÊ½
-	 * @return ÖĞ×º±í´ïÊ½µÄÖµ
+	 * <p>Description: è®¡ç®—ä¸­ç¼€è¡¨è¾¾å¼çš„å€¼</p>
+	 * @param exp ä¸­ç¼€è¡¨è¾¾å¼
+	 * @return ä¸­ç¼€è¡¨è¾¾å¼çš„å€¼
 	 * @date 2015-7-2
 	 */
 	public static String calInfix(String exp) {
@@ -322,10 +322,10 @@ public class ParseExpression {
 
     /**
      * <p>Title: inputParenthesis</p>
-     * <p>Description: ÊäÈëÀ¨ºÅ£¬"("ºÍ")"</p>
-     * @return "("»ò")"
+     * <p>Description: è¾“å…¥æ‹¬å·ï¼Œ"("å’Œ")"</p>
+     * @return "("æˆ–")"
      * @author bubble
-     * @date 2015-7-6 ÉÏÎç11:15:17
+     * @date 2015-7-6 ä¸Šåˆ11:15:17
      */
     public static String inputParenthesis(String expression){
     	String inputParenthesis = "";
@@ -352,11 +352,11 @@ public class ParseExpression {
     
     /**
      * <p>Title: isParenthesisMatch</p>
-     * <p>Description: ÅĞ¶Ï±í´ïÊ½µÄĞ¡À¨ºÅ"()"ÊÇ·ñÆ¥Åä</p>
-     * @param expression ±í´ïÊ½
-     * @return Æ¥Åä·µ»Øtrue£»²»Æ¥Åä·µ»Øfalse
+     * <p>Description: åˆ¤æ–­è¡¨è¾¾å¼çš„å°æ‹¬å·"()"æ˜¯å¦åŒ¹é…</p>
+     * @param expression è¡¨è¾¾å¼
+     * @return åŒ¹é…è¿”å›trueï¼›ä¸åŒ¹é…è¿”å›false
      * @author bubble
-     * @date 2015-7-10 ÏÂÎç3:38:04
+     * @date 2015-7-10 ä¸‹åˆ3:38:04
      */
     public static boolean isParenthesisMatch(String expression){
     	Stack<Character> parenthesisStack = new Stack<Character>();
@@ -375,13 +375,13 @@ public class ParseExpression {
     
     /**
 	 * <p>Title: insertDot2EndValid</p>
-	 * <p>Description: ÅĞ¶ÏÔÚ±í´ïÊ½Î²¶Ë×·¼ÓµÄµã'.'ÊÇ·ñÓĞĞ§</p>
-	 * @param expression ÔËËã±í´ïÊ½
-	 * @return ÊäÈëµÄµã'.'ÓĞĞ§Ôò·µ»Øtrue
+	 * <p>Description: åˆ¤æ–­åœ¨è¡¨è¾¾å¼å°¾ç«¯è¿½åŠ çš„ç‚¹'.'æ˜¯å¦æœ‰æ•ˆ</p>
+	 * @param expression è¿ç®—è¡¨è¾¾å¼
+	 * @return è¾“å…¥çš„ç‚¹'.'æœ‰æ•ˆåˆ™è¿”å›true
 	 * @date 2015-7-3
 	 */
     public static boolean appendDotValid(String expression) {
-		//ÔËËã±í´ïÊ½Îª¿Õ£¬Ôò¿ÉÒÔÊäÈëµã£¬ÓĞĞ§
+		//è¿ç®—è¡¨è¾¾å¼ä¸ºç©ºï¼Œåˆ™å¯ä»¥è¾“å…¥ç‚¹ï¼Œæœ‰æ•ˆ
 		if (expression.equals("")) 
 			return true;
 		
