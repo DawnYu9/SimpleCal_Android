@@ -31,7 +31,7 @@ import com.bubble.SimpleCal.R;
  * <p>Title: HistoryLayout</p>
  * <p>Description: </p>
  * <p>Company: </p> 
- * @version 2.0.0.150723   
+ * @version 2.0.0.150818   
  * @since JDK 1.8.0_45
  * @author bubble
  * @date 2015-7-19 下午2:42:57
@@ -75,9 +75,9 @@ public class HistoryLayout extends LinearLayout implements OnClickListener,OnTou
 	 */
 	@Override  
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {     
-		Object o = hisListView.getItemAtPosition(position);
-		String str=(String)o;
-		
+//		Object o = hisListView.getItemAtPosition(position);
+//		String str = (String)o;
+		String str = parent.getItemAtPosition(position).toString();
 		ClipboardManager clipboard = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
 		ClipData clip = ClipData.newPlainText("simple text",str);
 	 	clipboard.setPrimaryClip(clip);
