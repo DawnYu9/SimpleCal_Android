@@ -37,18 +37,31 @@ import com.bubble.SimpleCal.R;
  * @date 2015-7-19 下午2:42:57
  */
 public class HistoryLayout extends LinearLayout implements OnClickListener,OnTouchListener,OnItemClickListener{
-	Context context;
-	final String FILENAME = "history";
+	private Context context;
+	private final String FILENAME = "history";
+	
 	private List<String> equationList = new ArrayList<String>();
-	String hisHistory = "";
-	StringBuilder hisHistorySB = new StringBuilder();
-	ListView hisListView;
-	String[] hisItemArray;
-	String exp;
-	String result;
-	String[] hisItem;
-	EquationAdapter eAdapter;
-	boolean appendHistory;	//是否需要追加history字符串
+	private String hisHistory = "";
+	private StringBuilder hisHistorySB = new StringBuilder();
+	private ListView hisListView;
+	private String[] hisItemArray;
+	private String exp;
+	private String result;
+	private String[] hisItem;
+	private EquationAdapter eAdapter;
+	private boolean appendHistory;	//是否需要追加history字符串
+	private Button clearHisBtn;
+	private ClipboardManager clipboard;
+	private ClipData clip;
+	private String str;
+	private Button btn;
+	
+	private FileInputStream in;
+	private BufferedReader reader;
+	private StringBuilder contentSB;
+	private String fileDir;
+	private File file;
+	
 	public HistoryLayout(Context context) {
 		super(context);
 		this.context = context;
@@ -58,7 +71,7 @@ public class HistoryLayout extends LinearLayout implements OnClickListener,OnTou
 		hisListView.setAdapter(eAdapter);
 		hisListView.setOnItemClickListener(this);
 		
-		Button clearHisBtn = (Button)findViewById(R.id.history_clear);
+		clearHisBtn = (Button)findViewById(R.id.history_clear);
 		clearHisBtn.setOnTouchListener(this);
 		clearHisBtn.setOnClickListener(this);
 	}
@@ -75,11 +88,9 @@ public class HistoryLayout extends LinearLayout implements OnClickListener,OnTou
 	 */
 	@Override  
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {     
-//		Object o = hisListView.getItemAtPosition(position);
-//		String str = (String)o;
-		String str = parent.getItemAtPosition(position).toString();
-		ClipboardManager clipboard = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
-		ClipData clip = ClipData.newPlainText("simple text",str);
+		str = parent.getItemAtPosition(position).toString();
+		clipboard = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+		clip = ClipData.newPlainText("simple text",str);
 	 	clipboard.setPrimaryClip(clip);
 	 	
 	 	Toast.makeText(context, "已复制到剪贴板", Toast.LENGTH_SHORT).show();
@@ -95,13 +106,13 @@ public class HistoryLayout extends LinearLayout implements OnClickListener,OnTou
 	 */
 	@Override
 	    public boolean onTouch(View v, MotionEvent event) {
-	    	Button bt = (Button)v;
+	    	btn = (Button)v;
 	    	switch ( event.getAction() ){
 	    	case MotionEvent.ACTION_DOWN:
-	    		bt.setBackgroundColor(Color.parseColor("#F2F2F2"));
+	    		btn.setBackgroundColor(Color.parseColor("#F2F2F2"));
 	    		break;
 	    	case MotionEvent.ACTION_UP:
-	    		bt.setBackgroundColor(Color.WHITE);
+	    		btn.setBackgroundColor(Color.WHITE);
 	    		break;
 	    	default:
 	    		break;
@@ -161,11 +172,11 @@ public class HistoryLayout extends LinearLayout implements OnClickListener,OnTou
 	 * @date 2015-7-22 上午9:42:06
 	 */
 	public String load(){
-		FileInputStream in = null;
-		BufferedReader reader = null;
-		StringBuilder contentSB = new StringBuilder();
-		String fileDir = context.getFilesDir() + File.separator + FILENAME;
-		File file=new File(fileDir);
+		in = null;
+		reader = null;
+		contentSB = new StringBuilder();
+		fileDir = context.getFilesDir() + File.separator + FILENAME;
+		file = new File(fileDir);
 		try {
 			if ( ! file.exists() )
 				return "";

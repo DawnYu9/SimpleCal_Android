@@ -16,11 +16,31 @@ import java.util.Stack;
  * @date 2015-7-2
  */
 public class ParseExpression {
-	final static String ERROR = "格式错误";
-	final static String[] ERROR_ARRAY = ERROR.split("");
-	static String regOperator = "\\+|-|×|÷";
+	private final static String ERROR = "格式错误";
+	private final static String[] ERROR_ARRAY = ERROR.split("");
+	private static String regOperator = "\\+|-|×|÷";
 	
 	private static final Map<String, Integer> OPERATORS = new HashMap<String, Integer>();
+	private static String s;
+	private static String str;
+	private static String arrString;
+	private static String[] outputs;
+	private static String suffixExp;
+	private static String[] inputs;
+	private static Stack<String> suffixStack;
+	private static String[] expressions;
+	private static String resultString;
+	private static String v1;
+	private static String v2;
+	private static String val;
+	private static String regNum;
+	private static Stack<String> calStack;
+	private static String suffixExp2;
+	private static String inputParenthesis;
+	private static String lastCharString;
+	private static boolean isParenthesisMatch;
+	private static Stack<Character> parenthesisStack;
+	private static char[] expArrays;
  
 	static {	//运算符优先级
 		OPERATORS.put( "+", 0);
@@ -49,7 +69,7 @@ public class ParseExpression {
 	 * @date 2015-7-13 下午6:02:58
 	 */
 	public static boolean isOperator(char ch) {
-		String s = String.valueOf(ch);
+		s = String.valueOf(ch);
 		return OPERATORS.containsKey(s);
 	}
 	
@@ -96,8 +116,8 @@ public class ParseExpression {
 		StringBuilder lastOperand = new StringBuilder();
 		//遍历中缀字符数组
 		for ( char ch: infixExp.toCharArray()) {
-			String str = Character.toString(ch);
-			String arrString = strArr.toString().replaceAll("(.*?)(\\])$", "$1");
+			str = Character.toString(ch);
+			arrString = strArr.toString().replaceAll("(.*?)(\\])$", "$1");
 			
 			if (str.matches("\\(")){
 				strArr.add(str);
@@ -149,7 +169,7 @@ public class ParseExpression {
 			strArr.add(lastOperand.toString());
 		}
        
-		String[] outputs = new String[strArr.size()];
+		outputs = new String[strArr.size()];
         return strArr.toArray(outputs);
 	}   
 	
@@ -161,58 +181,58 @@ public class ParseExpression {
 	 * @date 2015-7-2
 	 */
 	public static String infix2Suffix(String infixExp) {
-		String suffixExp = "";
+		suffixExp = "";
 	   
-		String[] inputs = splitInfixExp(infixExp);
+		inputs = splitInfixExp(infixExp);
 	   
 		if (inputs == null)
 			return null;
 	   
-		Stack<String> stack = new Stack<String>();
+		suffixStack = new Stack<String>();
 	   
 		for (String input: inputs) {
 			if ( input.matches("\\(") ){
-				stack.push(input);
+				suffixStack.push(input);
 			}
 			else if (input.matches("%")){
-				stack.push(input);
+				suffixStack.push(input);
 			}
 			else if( input.matches("\\)") ){
-				while ( !stack.empty() ){
-					while( !stack.peek().matches("\\(") )
-						suffixExp =suffixExp + " " + stack.pop();
-					if(stack.peek().matches("\\("))
+				while ( !suffixStack.empty() ){
+					while( !suffixStack.peek().matches("\\(") )
+						suffixExp =suffixExp + " " + suffixStack.pop();
+					if(suffixStack.peek().matches("\\("))
 						break;
 				}
-				if( stack.peek().matches("\\(") ){
-					stack.pop();
+				if( suffixStack.peek().matches("\\(") ){
+					suffixStack.pop();
 				}
 				else
 					return ERROR;
 			}
 			else if ( isOperator(input) ) {
-				while ( !stack.empty() ) {
-					if( isOperator(stack.peek()) ){
-						if ( comparePrior(input, stack.peek()) <= 0) {
-							suffixExp =suffixExp + " " + stack.pop();
+				while ( !suffixStack.empty() ) {
+					if( isOperator(suffixStack.peek()) ){
+						if ( comparePrior(input, suffixStack.peek()) <= 0) {
+							suffixExp =suffixExp + " " + suffixStack.pop();
 							continue;
 						}
 					}
-					else if( stack.peek().matches("%") ){
-						suffixExp =suffixExp + " " + stack.pop();
+					else if( suffixStack.peek().matches("%") ){
+						suffixExp =suffixExp + " " + suffixStack.pop();
 						continue;
 					}
 					break;
 				}
-				stack.push(input);
+				suffixStack.push(input);
 			}
 			else {
 				suffixExp = suffixExp + " " + input;
 			}
 		}
 	   
-		while (!stack.empty()) {
-			suffixExp = suffixExp + " " + stack.pop();
+		while (!suffixStack.empty()) {
+			suffixExp = suffixExp + " " + suffixStack.pop();
 		}
 	       
 		return suffixExp.trim();
@@ -226,22 +246,22 @@ public class ParseExpression {
 	 * @date 2015-7-2
 	 */
 	public static String calSuffix(String suffixExp) {
-		String[] expression = suffixExp.split(" ");
-		String resultString = "";
-		String v1 = "";
-		String v2 = "";
-		String val = "";
+		expressions = suffixExp.split(" ");
+		resultString = "";
+		v1 = "";
+		v2 = "";
+		val = "";
 		//字符串是否为合法操作数
-		String regNum = "-?[0-9]+(\\.[0-9]+)?";
+		regNum = "-?[0-9]+(\\.[0-9]+)?";
 		
-		Stack<String> stack = new Stack<String>();
-		for (String op: expression) {
+		calStack = new Stack<String>();
+		for (String op: expressions) {
 			if( isOperator(op)) {
-				if (stack.size() < 2)
+				if (calStack.size() < 2)
 					return ERROR;
 		 
-				v2 = stack.pop();
-				v1 = stack.pop();
+				v2 = calStack.pop();
+				v1 = calStack.pop();
 	 
 				if ( v1.matches(regNum) && v2.matches(regNum) ){
 					switch(op.charAt(0)){
@@ -260,34 +280,34 @@ public class ParseExpression {
 							val = Arith.div(v1, v2);
 							break;
 					}
-					stack.push(val);
+					calStack.push(val);
 				}
 				else 
 					return ERROR;
 			}
 			else if( op.matches("%") ){
-				if( stack.size() < 1)
+				if( calStack.size() < 1)
 					return ERROR;
 				
-				v1 = stack.pop();
+				v1 = calStack.pop();
 				v2 = "100";
 				if ( ! v1.matches(regNum) )
 					return ERROR;
 				
 				val = Arith.div(v1, v2);
-				stack.push(val);
+				calStack.push(val);
 			}
 			else if ( op.matches(regNum) ){
-				stack.push(op);
+				calStack.push(op);
 			}
 			else{
 				return ERROR;
 			}
 		}
 		
-		resultString = stack.pop();
+		resultString = calStack.pop();
 
-		if ( ! stack.empty() ){
+		if ( ! calStack.empty() ){
 	    	return ERROR;
 	    }
 		
@@ -313,11 +333,11 @@ public class ParseExpression {
 	 * @date 2015-7-2
 	 */
 	public static String calInfix(String exp) {
-		String suffixExp = infix2Suffix(exp);
-		if (suffixExp == null)
+		suffixExp2 = infix2Suffix(exp);
+		if (suffixExp2 == null)
 			return "";
 		
-		return calSuffix(suffixExp);
+		return calSuffix(suffixExp2);
 	}
 
     /**
@@ -328,14 +348,14 @@ public class ParseExpression {
      * @date 2015-7-6 上午11:15:17
      */
     public static String inputParenthesis(String expression){
-    	String inputParenthesis = "";
+    	inputParenthesis = "";
     	if(expression.length() > 0){
-    		String lastCharString = String.valueOf(expression.charAt(expression.length()-1));
+    		lastCharString = String.valueOf(expression.charAt(expression.length()-1));
     		if(isOperator(lastCharString) || lastCharString.matches("\\(") )
     			inputParenthesis = "(";
     		else if(lastCharString.matches( "[0-9]|\\.|\\)|%") ){
-    			boolean b = isParenthesisMatch(expression);
-    			if(b)
+    			isParenthesisMatch = isParenthesisMatch(expression);
+    			if(isParenthesisMatch)
     				return "";
     			else
     				inputParenthesis = ")";
@@ -359,9 +379,9 @@ public class ParseExpression {
      * @date 2015-7-10 下午3:38:04
      */
     public static boolean isParenthesisMatch(String expression){
-    	Stack<Character> parenthesisStack = new Stack<Character>();
-		char[] expArray = expression.toCharArray();
-		for (char c:expArray){
+    	parenthesisStack = new Stack<Character>();
+		expArrays = expression.toCharArray();
+		for (char c:expArrays){
 			if(c == '(')
 				parenthesisStack.push(c);
 			else if( (c == ')') && (! parenthesisStack.isEmpty()) )

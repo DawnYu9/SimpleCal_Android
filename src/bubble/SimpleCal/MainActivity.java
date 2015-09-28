@@ -29,30 +29,35 @@ import com.bubble.SimpleCal.R;
  * @date 2015-7-2
  */
 public class MainActivity extends Activity implements OnPageChangeListener{
-	final String FILENAME = "history";
-	ViewPager viewPager;  
-    ArrayList<View> viewList; 
-    CalLayout calView;
-    HistoryLayout hisView;
-    String calHistory;
-    String hisHistory;
-    boolean isFirstOpenHistory = true;
-    boolean isCalHisChanged = false;
+	private final String FILENAME = "history";
+	
+	private LayoutInflater inflater;
+	private ViewGroup viewGroup;
+	private ViewPager viewPager;  
+	private MyPagerAdapter mAdapter;
+	private ArrayList<View> viewList; 
+	
+	private CalLayout calView;
+	private HistoryLayout hisView;
+	private String calHistory;
+	private String hisHistory;
+	private boolean isFirstOpenHistory = true;
+	private boolean isCalHisChanged = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         
-        LayoutInflater inflater = getLayoutInflater();
+        inflater = getLayoutInflater();
         calView = new CalLayout(this);
         hisView = new HistoryLayout(this);
         viewList = new ArrayList<View>();  
         viewList.add(calView);
         viewList.add(hisView);
         
-        ViewGroup viewGroup = (ViewGroup)inflater.inflate(R.layout.activity_main, null);  
+        viewGroup = (ViewGroup)inflater.inflate(R.layout.activity_main, null);  
         viewPager = (ViewPager)viewGroup.findViewById(R.id.viewPager);  
-        MyPagerAdapter mAdapter = new MyPagerAdapter(this,viewList);
+        mAdapter = new MyPagerAdapter(this,viewList);
         viewPager.setAdapter(mAdapter); 
         
         viewPager.addOnPageChangeListener(this);

@@ -19,8 +19,8 @@ import android.view.ViewGroup;
  */
 public class MyPagerAdapter extends PagerAdapter {  
 	private ArrayList<View> viewList;
-	Context context;
-	String history;
+	private Context context;
+	private String history;
 	
 	public MyPagerAdapter(Context context,ArrayList<View> list){
 		this.viewList = list;

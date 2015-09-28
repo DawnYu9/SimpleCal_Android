@@ -32,10 +32,10 @@ import com.bubble.SimpleCal.R;
  * @date 2015-7-19 下午1:55:04
  */
 public class CalLayout extends GridLayout implements OnClickListener{
-	Context context;
-	final static String ERROR = "格式错误";
-	String parenthesis = "( )";
-	String[] btTexts = new String[]{
+	private Context context;
+	private final static String ERROR = "格式错误";
+	private String parenthesis = "( )";
+	private String[] btTexts = new String[]{
 			"C", "÷", "×", "D",
 			"7", "8", "9", "-",
 			"4", "5", "6", "+",
@@ -43,20 +43,39 @@ public class CalLayout extends GridLayout implements OnClickListener{
 			"0", ".", "%", "="
 	};
 	
-	GridLayout gridLayout;
-	EditText printET;
-	TextView historyTV;
+	private GridLayout gridLayout;
+	private EditText printET;
+	private TextView historyTV;
 	
-	String resultString;
-	String exp;
-	String expAndResult;
-	boolean cursorEnd = true;	//光标是否在尾端，默认为真
-	String frontExp = exp;	//光标前的表达式,默认光标在尾端
-	String rearExp = "";	//光标后的表达式,默认光标在尾端
-	String regOperator = "\\+|-|×|÷";
-	char lastChar = ' ';
+	private String resultString;
+	private String exp;
+	private String expAndResult;
+	private boolean cursorEnd = true;	//光标是否在尾端，默认为真
+	private String frontExp = exp;	//光标前的表达式,默认光标在尾端
+	private String rearExp = "";	//光标后的表达式,默认光标在尾端
+	private String regOperator = "\\+|-|×|÷";
+	private char lastChar = ' ';
 
-	StringBuilder historySB = new StringBuilder();	//保存历史记录
+	private StringBuilder historySB = new StringBuilder();	//保存历史记录
+	private Class<EditText> cls;
+	private Method method;
+	private Point size;
+	private WindowManager wm;
+	private Display display;
+	private int rowCount;
+	private int cellWidth;
+	private int columnCount;
+	private int cellHeight;
+	private int row;
+	private int column;
+	private GridLayout.Spec rowSpec;
+	private GridLayout.Spec columnSpec;
+	private GridLayout.LayoutParams cellParams;
+	private GridLayout.LayoutParams tvParams;
+	private Button bt;
+	private String btText;
+	private String inputString;
+	private String penultCharString;
 	
 	/**
 	 * <p>Title: </p>
@@ -86,8 +105,7 @@ public class CalLayout extends GridLayout implements OnClickListener{
 			//设置输入模式，窗体获得焦点，始终隐藏软键盘  
 			((Activity) getContext()).getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                      
-	        Class<EditText> cls = EditText.class;  
-	        Method method;
+	        cls = EditText.class;  
 	        try { 
 	            method = cls.getMethod("setShowSoftInputOnFocus",boolean.class);  
 	            method.setAccessible(true);  //设置是可访问，为true，表示禁止访问 
@@ -148,30 +166,23 @@ public class CalLayout extends GridLayout implements OnClickListener{
      * @date 2015-7-15 
      */
     private void initCalUI(){
-    	Point size = new Point();
-    	WindowManager wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-    	Display display = wm.getDefaultDisplay();
+    	size = new Point();
+    	wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+    	display = wm.getDefaultDisplay();
     	display.getSize(size);
         
-    	int rowCount = 7;
-    	int columnCount = 4;
-        int cellWidth = (int)( (size.x - 3) / columnCount);
-        int cellHeight = (int)( (size.y - 5) / rowCount );
-        int row;
-        int column;
-        
-		printET.setTextIsSelectable(true);
+    	rowCount = 7;
+    	columnCount = 4;
+        cellWidth = (int)( (size.x - 3) / columnCount);
+        cellHeight = (int)( (size.y - 5) / rowCount );
+        printET.setTextIsSelectable(true);
 		printET.setBackgroundColor(Color.WHITE);
-		GridLayout.LayoutParams tvParams = (GridLayout.LayoutParams)printET.getLayoutParams();
+		tvParams = (GridLayout.LayoutParams)printET.getLayoutParams();
 		tvParams.height = (int)( size.y - cellHeight * 5 - 44 );
 		printET.setLayoutParams(tvParams);
 		
         gridLayout = (GridLayout)findViewById(R.id.calculator_main);
-        GridLayout.Spec rowSpec;
-        GridLayout.Spec columnSpec;
         gridLayout.setBackgroundColor(Color.parseColor("#D1D1D1"));
-        GridLayout.LayoutParams cellParams;
-        
         //批量初始化按钮
         Button btn[] = new Button[btTexts.length];
 
@@ -238,14 +249,14 @@ public class CalLayout extends GridLayout implements OnClickListener{
      */
     @Override
 	public void onClick(View v) {
-		Button bt = (Button)v;
-		String btText = bt.getText().toString();
+		bt = (Button)v;
+		btText = bt.getText().toString();
 		
 		exp = printET.getText().toString();
         expAndResult = "";
         frontExp = exp;
         rearExp = "";
-		String inputString = bt.getText().toString();
+		inputString = bt.getText().toString();
 		
 		if ( resultString.matches(ERROR) ){
 			initVal();
@@ -347,7 +358,7 @@ public class CalLayout extends GridLayout implements OnClickListener{
 					//如果lastCHar是运算符且倒数第二个字符是数字，则替换成input输入的运算符
 					else if(exp.length() > 1){
 						lastChar = exp.charAt(exp.length()-1);
-						String penultCharString = String.valueOf(exp.charAt(exp.length()-2));
+						penultCharString = String.valueOf(exp.charAt(exp.length()-2));
 						if ( ParseExpression.isOperator(lastChar) ){
 							if(penultCharString.matches("[0-9]|\\)|\\.|%"))
 								exp = exp.substring(0, exp.length()-1);

@@ -22,6 +22,10 @@ import com.bubble.SimpleCal.R;
  */
 public class EquationAdapter extends ArrayAdapter<String>{
 	private int resourdId;
+	private String equation;
+	private View view;
+	private ViewHolder viewHolder;
+	
 	public EquationAdapter(Context context,int viewResourceId,List<String> objects){
 		super(context,viewResourceId,objects);
 		resourdId = viewResourceId;
@@ -29,9 +33,7 @@ public class EquationAdapter extends ArrayAdapter<String>{
 	
 	@Override
 	public View getView(int position,View convertView,ViewGroup parent){
-		String equation = getItem(position);
-		View view;
-		ViewHolder viewHolder;
+		equation = getItem(position);
 		if ( convertView == null){
 			view = LayoutInflater.from(getContext()).inflate(resourdId, null);
 			viewHolder = new ViewHolder();
