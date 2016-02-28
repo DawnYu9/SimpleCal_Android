@@ -123,8 +123,8 @@ public class MainActivity extends Activity implements OnPageChangeListener{
     public void onDestroy(){
     	super.onDestroy();
     	hisHistory = hisView.getHistory();
-    	save(hisHistory);
-    	}
+		save(hisHistory + calView.getHistory());
+	}
     
     /**
      * <p>Title: save</p>

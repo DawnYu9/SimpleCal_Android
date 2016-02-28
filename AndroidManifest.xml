@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bubble.SimpleCal"
     android:versionCode="6"
-    android:versionName="2.2.1.150818" >
+    android:versionName="2.2.1.160228" >
 
     <uses-sdk
         android:minSdkVersion="17"
@@ -12,7 +12,8 @@
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme" 
+        >
         <activity
             android:name="bubble.SimpleCal.MainActivity"
             android:label="@string/app_name" >
